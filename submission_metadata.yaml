@@ -1,0 +1,84 @@
+# ============================================================================
+# Redrob Hackathon v4 — Submission Metadata
+# ============================================================================
+# This file must be named "submission_metadata.yaml" and placed at the root 
+# of your GitHub repository. It must mirror what you submit in the web portal.
+
+# ============================================================================
+# Team identity
+# ============================================================================
+team_name: " STRIVERS "  # Used in leaderboard and announcements
+
+primary_contact:
+  name: "Anish Rajak"
+  email: "anishedu2234@gmail.com"   # Used for all organizer communication
+  phone: "+91-7439364907"        # Used for top-50 / top-10 outreach
+
+team_members:
+  - name: "Anish Rajak"
+    email: "anishedu2234@gmail.com"
+    role: "Team Leader / App Developer"
+  - name: "[Member 2 Name Here]"
+    email: "[member2@example.com]"
+    role: "UI Design Suggestion"
+  - name: "[Member 3 Name Here]"
+    email: "[member3@example.com]"
+    role: "UI Design Suggestion"
+
+# ============================================================================
+# Code and reproducibility
+# ============================================================================
+github_repo: "[Insert your GitHub repo link here, e.g., https://github.com/Anish/TalentLens]"
+# Required. Must be reachable. Private repos OK if you can grant organizer
+# access at Stage 3 (the email to add will be communicated then).
+
+sandbox_link: "[Insert your Streamlit Cloud link here]"
+# Required. A working hosted environment where the ranker can be run on a small
+# candidate sample. See Section 10.5 of submission_spec.md for acceptable
+# platforms (HuggingFace Spaces, Streamlit Cloud, Replit, Colab, Docker, Binder).
+
+reproduce_command: "python main.py"
+# The single command that produces submission.csv from candidates.jsonl.
+# Should run end-to-end within 5 minutes on CPU with 16GB RAM and no network.
+
+# ============================================================================
+# Compute environment
+# ============================================================================
+compute:
+  platform: "Local Windows Box"                 # Or: "AWS EC2 c5.4xlarge", "Local Linux box", etc.
+  cpu_cores: 8                                  # Number of CPU cores used
+  ram_gb: 16                                    # Available RAM in GB
+  python_version: "3.11.4"                      # python --version
+  os: "Windows 11"                              # Or "Ubuntu 22.04 LTS", etc.
+  uses_gpu_for_inference: false                 # Must be false — see compute constraints
+  has_network_during_ranking: false             # Must be false — no API calls during ranking
+  pre_computation_required: false               # true if you pre-compute embeddings or train models offline
+  pre_computation_time_minutes: 0               # Approximate, if applicable
+
+# ============================================================================
+# AI tools declaration
+# ============================================================================
+# Transparency only — declared use is NOT penalized. Be honest. Stage 5 interview
+# may verify these declarations against your code; declarations that contradict
+# your code or your interview are flagged.
+ai_tools_used:
+  - "Gemini"        # e.g. for architecture discussion, code review
+  # Other options: "ChatGPT", "Claude", "Copilot", "Cursor", "Codeium", "Other", "None"
+
+ai_usage_summary: |
+  Used Gemini to design the semantic ranking architecture, generate the honeypot 
+  filter logic based on the provided signals document, and write the deterministic 
+  sorting pipeline. No candidate data was sent to external LLMs during the actual 
+  ranking execution in order to respect compute constraints.
+
+# ============================================================================
+# Approach summary (optional but recommended)
+# ============================================================================
+methodology_summary: |
+  Rule-based semantic ranking engine with strict honeypot validation. Uses 
+  four deterministic scoring pillars: Skill Match (40%), Experience (30%), 
+  Role Relevance (10%), and Platform Engagement Signals (20%). It eliminates 
+  synthetic trap candidates using time-travel contradictions and impossible 
+  skill durations. The pipeline uses a streaming jsonl approach to process 
+  100k records quickly and entirely locally on CPU, ensuring it respects the 
+  5-minute computation limits.
